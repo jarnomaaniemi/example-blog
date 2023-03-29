@@ -1,0 +1,11 @@
+body {
+    background-color: white;
+    color: #222;
+    max-width: 600px;
+    margin: auto;
+    font-family: sans-serif;
+}
+
+article + article {
+    margin-top: 3rem;
+}
