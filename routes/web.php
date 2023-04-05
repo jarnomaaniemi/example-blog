@@ -1,9 +1,7 @@
 <?php
 
-use App\Models\Post;
-use Illuminate\Support\Facades\File;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
-use Spatie\YamlFrontMatter\YamlFrontMatter;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,21 +14,26 @@ use Spatie\YamlFrontMatter\YamlFrontMatter;
 |
 */
 
-/**
- * Index: show all posts
- */
-Route::get('/', function () {
-    return view('posts', [
-        'posts' => Post::all()
-    ]);
-});
+// Index: show all posts or posts that match search value with categories (eager loading)
+Route::get('/', [PostController::class, 'index'])->name('home'); // named routes
 
-Route::get('/posts/{post}', function ($slug) {
-    // _Find_ a _post_ by it's _slug_ 
-    $post = Post::find($slug);
+// Show a post (using route model binding: route key to eloquent model) or 404 page
+Route::get('/posts/{post:slug}', [PostController::class, 'show']);
 
-    //and pass it to a _view_ called _'post'_
-    return view('post', [
-        'post' => $post
-    ]);
-})->where('post', '[A-z_\-]+');
+// // Eager loading relationships in Post class ($with variable)
+// Route::get('/categories/{category:slug}', function (Category $category) {
+//     return view('posts', [
+//         // 'posts' => $category->posts->load('category', 'author')
+//         'posts' => $category->posts,
+//         'currentCategory' => $category,
+//         'categories' => Category::all()
+//     ]);
+// })->name('category');
+
+// // Eager loading with load() funktion
+// Route::get('/authors/{author:username}', function (User $author) {
+//     return view('posts.index', [
+//         // 'posts' => $author->posts
+//         'posts' => $author->posts->load('category', 'author'),
+//     ]);
+// });
