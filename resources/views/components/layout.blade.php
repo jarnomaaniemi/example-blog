@@ -17,13 +17,23 @@
                 </a>
             </div>
 
-            <div class="mt-8 md:mt-0">
-                <a href="/" class="text-xs font-bold uppercase">Home Page</a>
+            <div class="mt-8 md:mt-0 flex items-center">
+                @auth
+                    <span class="text-xs font-bold uppercase mr-3">Shalom {{ auth()->user()->name }}!</span>
+                    <form action="/logout" method="post">
+                        @csrf
+                        <button type="submit"
+                            class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded-full py-2 px-8">Logout</button>
+                    </form>
+                @else
+                    <a href="/login" class="transition-colors duration-300 text-xs font-semibold bg-blue-500 hover:bg-blue-700 text-white rounded-full py-2 px-6 mr-2">Login</a>
+                    <a href="/register" class="transition-colors duration-300 text-xs font-semibold bg-gray-200 hover:bg-gray-300 rounded-full py-2 px-6">Register</a>
+                @endauth
 
-                <a href="#"
+                {{-- <a href="#"
                     class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
-                </a>
+                </a> --}}
             </div>
         </nav>
 
@@ -56,4 +66,8 @@
             </div>
         </footer>
     </section>
+
+    {{-- Success flash message --}}
+    <x-flash />
+
 </body>
