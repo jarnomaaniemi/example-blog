@@ -4,6 +4,7 @@
         <button class="py-2 pl-3 pr-9 text-sm font-semibold w-32 text-left">
             {{ isset($currentCategory) ? ucwords($currentCategory->name) : 'Categories' }}
         </button>
+        <x-down-arrow style="display: inline; cursor: pointer;"/>
     </x-slot>
 
     {{-- passed as default $slot to component --}}
