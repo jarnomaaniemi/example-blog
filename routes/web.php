@@ -6,7 +6,10 @@ use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
+use App\Mail\Receipt;
+use App\Models\User;
 use App\Services\Newsletter;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\ValidationException;
 
@@ -20,7 +23,6 @@ use Illuminate\Validation\ValidationException;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
 
 // Index: show all posts or posts that match search value with categories (eager loading)
 Route::get('/', [PostController::class, 'index'])->name('home'); // named routes
